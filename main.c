@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 void ImprimeLayout(char posicao[],int n);
 
@@ -8,6 +9,20 @@ int main() {
     for(int i=0; i<9; i++){
     	posicao[i] = 49 + i;
 	}
+	
+	printf("        ____   ____   ____          ___    ____ \n");
+	printf("     | |    | |      |    |        |   \\  |    |\n");
+	printf("     | |    | |   _  |    |        |    | |____|\n");
+	printf("     | |    | |    | |    |        |    | |    |\n");
+	printf("|____| |____| |____| |____|        |___/  |    |\n");
+	printf("        ____                 ____               \n");
+	printf("|    | |      |      |    | |    |              \n");
+	printf("\\    / |___   |      |____| |____|              \n");
+	printf(" \\  /  |      |      |    | |    |             \n");
+	printf("  \\/   |____  |____  |    | |    |              \n\n");
+	
+	system("pause");
+	system("cls");
     
     ImprimeLayout(posicao, sizeof(posicao));
 
