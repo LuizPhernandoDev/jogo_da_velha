@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 void ImprimeLayout(char posicao[],int n);
+void ImprimeInicial();
 
 int main() {
     char posicao[9];
@@ -10,6 +11,17 @@ int main() {
     	posicao[i] = 49 + i;
 	}
 	
+	ImprimeInicial();
+	
+	system("pause");
+	system("cls");
+    
+    ImprimeLayout(posicao, sizeof(posicao));
+
+    return 0;
+}
+
+void ImprimeInicial(){
 	printf("        ____   ____   ____          ___    ____ \n");
 	printf("     | |    | |      |    |        |   \\  |    |\n");
 	printf("     | |    | |   _  |    |        |    | |____|\n");
@@ -20,13 +32,6 @@ int main() {
 	printf("\\    / |___   |      |____| |____|              \n");
 	printf(" \\  /  |      |      |    | |    |             \n");
 	printf("  \\/   |____  |____  |    | |    |              \n\n");
-	
-	system("pause");
-	system("cls");
-    
-    ImprimeLayout(posicao, sizeof(posicao));
-
-    return 0;
 }
 
 void ImprimeLayout(char posicao[],int n){
