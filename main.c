@@ -47,16 +47,25 @@ int main() {
 }
 
 void ImprimeInicial(){
-	printf("        ____   ____   ____          ___    ____ \n");
-	printf("     | |    | |      |    |        |   \\  |    |\n");
-	printf("     | |    | |   _  |    |        |    | |____|\n");
-	printf("     | |    | |    | |    |        |    | |    |\n");
-	printf("|____| |____| |____| |____|        |___/  |    |\n");
-	printf("        ____                 ____               \n");
-	printf("|    | |      |      |    | |    |              \n");
-	printf("\\    / |___   |      |____| |____|              \n");
-	printf(" \\  /  |      |      |    | |    |             \n");
-	printf("  \\/   |____  |____  |    | |    |              \n\n");
+	setlocale(LC_ALL, "C");
+	printf("  ±±±  ±±±   ±±±   ±±± \n");
+	printf("   ±  ±   ± ±     ±   ±\n");
+	printf("   ±  ±   ± ±  ±± ±   ±\n");
+	printf("±  ±  ±   ± ±   ± ±   ±\n");
+	printf(" ±±    ±±±   ±±±   ±±± \n\n");
+	
+	printf("±±±±   ±±± \n");
+	printf("±   ± ±   ±\n");
+	printf("±   ± ±±±±±\n");
+	printf("±   ± ±   ±\n");
+	printf("±±±±  ±   ±\n\n");
+	
+	printf("±   ± ±±±±± ±     ±   ±  ±±± \n");
+	printf("±   ± ±     ±     ±   ± ±   ±\n");
+	printf("±   ± ±±±±  ±     ±±±±± ±±±±±\n");
+	printf(" ± ±  ±     ±     ±   ± ±   ±\n");
+	printf("  ±   ±±±±± ±±±±± ±   ± ±   ±\n");
+	setlocale(LC_ALL, "Portuguese");
 }
 
 void ImprimeLayout(char velha[], int n){
