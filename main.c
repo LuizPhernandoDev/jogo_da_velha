@@ -2,30 +2,46 @@
 #include <locale.h>
 #include <stdlib.h>
 
-void ImprimeLayout(char posicao[],int n);
+void ImprimeLayout(char velha[],int n);
 void ImprimeInicial();
 
 int main() {
 	setlocale(LC_ALL, "Portuguese");
-    char posicao[9], vez;
+    char velha[9], vez, posicao;
+    int i;
     
-    for(int i=0; i<9; i++){
-    	posicao[i] = 49 + i;
-	}
+    for(i=0; i<9; i++)
+    	velha[i] = 49 + i;
 	
 	do{
 		ImprimeInicial();
 		printf("Precione [X] ou [O] para começar: ");
 		vez = getchar();
 		system("cls");
-		if(vez != 'x' && vez != 'o' && vez != 'X' && vez != 'O'){
+		if(vez != 'x' && vez != 'o' && vez != 'X' && vez != 'O')
 			printf("                    Invalido! \n");
-		}else if(vez == 'x' || vez == 'o'){
+		else if(vez == 'x' || vez == 'o')
 			vez-=32;
-		}
 	}while(vez!='X' && vez!='O');
-	
-    ImprimeLayout(posicao, sizeof(posicao));
+    
+	do{
+		ImprimeLayout(velha, sizeof(velha));
+		printf("É a vez do %c jogar, escolha a posição: \n", vez);
+		printf("Disponives: ");
+		for(i=0; i<9; i++)
+			if(velha[i] == 49+i)
+				printf("%c ", velha[i]);
+			putchar('\n');
+			fflush(stdin);
+			posicao = getchar();
+			system("cls");
+			if(posicao < 49 || posicao >= 57)
+				printf("      Invalido! \n");
+			else
+				velha[posicao-49] = vez;
+	}while(posicao < 49 || posicao >= 57);
+    
+    ImprimeLayout(velha, sizeof(velha));
 
     return 0;
 }
@@ -43,14 +59,14 @@ void ImprimeInicial(){
 	printf("  \\/   |____  |____  |    | |    |              \n\n");
 }
 
-void ImprimeLayout(char posicao[], int n){
+void ImprimeLayout(char velha[], int n){
 	printf("       |       |       \n");
-    printf("   %c   |   %c   |   %c  \n", posicao[0], posicao[1], posicao[2]);
+    printf("   %c   |   %c   |   %c  \n", velha[0], velha[1], velha[2]);
     printf("_______|_______|_______\n");
     printf("       |       |       \n");
-    printf("   %c   |   %c   |   %c  \n", posicao[3], posicao[4], posicao[5]);
+    printf("   %c   |   %c   |   %c  \n", velha[3], velha[4], velha[5]);
     printf("_______|_______|_______\n");
     printf("       |       |       \n");
-    printf("   %c   |   %c   |   %c  \n", posicao[6], posicao[7], posicao[8]);
+    printf("   %c   |   %c   |   %c  \n", velha[6], velha[7], velha[8]);
     printf("       |       |       \n");
 }
