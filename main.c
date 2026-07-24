@@ -74,9 +74,11 @@ int main() {
 	
 	if(vez != 'a'){
 		printf("Parabens!\n");
-		printf("O %c é o vencedor.\n", vez);
+		printf("O %c é o vencedor.\n\n", vez);
 	}else
-	printf("Deu empate!\n");
+	printf("Deu empate!\n\n");
+
+	ImprimeLayout(velha, sizeof(velha));
 
     return 0;
 }
