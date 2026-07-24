@@ -4,6 +4,7 @@
 
 void ImprimeLayout(char velha[],int n);
 void ImprimeInicial();
+char CondicaoVitoria(char velha[], int n, char vez);
 
 int main() {
 	setlocale(LC_ALL, "Portuguese");
@@ -56,12 +57,7 @@ int main() {
 			
 		}while(posicao < 49 || posicao > 57 || !(disponivel));
 		
-		if(velha[0] == velha[1] && velha[0] == velha[2] || velha[3] == velha[4] && velha[3] == velha[5] || velha[6] == velha[7] && velha[6] == velha[8])
-			vencedor = vez;
-		if(velha[0] == velha[3] && velha[0] == velha[6] || velha[1] == velha[4] && velha[1] == velha[7] || velha[2] == velha[5] && velha[2] == velha[8])
-			vencedor = vez;
-		if(velha[0] == velha[4] && velha[0] == velha[8] || velha[2] == velha[4] && velha[2] == velha[6])
-			vencedor = vez;
+		vencedor = CondicaoVitoria(velha, sizeof(velha), vez);
 		
 		if(vez == 'X')
 			vez = 'O';
@@ -105,4 +101,14 @@ void ImprimeLayout(char velha[], int n){
     printf("       |       |       \n");
     printf("   %c   |   %c   |   %c  \n", velha[6], velha[7], velha[8]);
     printf("       |       |       \n");
+}
+
+char CondicaoVitoria(char velha[], int n, char vez){
+	if(velha[0] == velha[1] && velha[0] == velha[2] || velha[3] == velha[4] && velha[3] == velha[5] || velha[6] == velha[7] && velha[6] == velha[8])
+		return vez;
+	if(velha[0] == velha[3] && velha[0] == velha[6] || velha[1] == velha[4] && velha[1] == velha[7] || velha[2] == velha[5] && velha[2] == velha[8])
+		return vez;
+	if(velha[0] == velha[4] && velha[0] == velha[8] || velha[2] == velha[4] && velha[2] == velha[6])
+		return vez;
+	return 'a';
 }
