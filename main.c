@@ -9,9 +9,9 @@ char CondicaoVitoria(char velha[], int n, char vez);
 int main() {
 	setlocale(LC_ALL, "Portuguese");
     char velha[9], vez, posicao, vencedor = 'a';
-    int i, disponivel;
+    int disponivel, jogadas;
     
-    for(i=0; i<9; i++)
+    for(int i=0; i<9; i++)
     	velha[i] = 49 + i;
 	
 	do{
@@ -25,7 +25,8 @@ int main() {
 			printf("          Invalido!\n");
 		else if(vez == 'x' || vez == 'o')
 			vez-=32;
-			
+	
+	jogadas = 1;	
 	}while(vez!='X' && vez!='O');
     do{
     	do{
@@ -36,7 +37,7 @@ int main() {
 			printf("É a vez do %c jogar, escolha a posição: \n", vez);
 			printf("Disponives: ");
 			
-			for(i=0; i<9; i++)
+			for(int i=0; i<9; i++)
 				if(velha[i] == 49+i)
 					printf("[%c] ", velha[i]);
 			putchar('\n');
@@ -44,7 +45,7 @@ int main() {
 			fflush(stdin);
 			posicao = getchar();
 			
-			for(i=0; i<9; i++)
+			for(int i=0; i<9; i++)
 				if(velha[i] == posicao)
 					disponivel++;
 			
@@ -64,7 +65,9 @@ int main() {
 		else
 			vez = 'X';
 			
-	}while(vencedor == 'a');
+		jogadas++;
+		
+	}while(vencedor == 'a' || jogadas < 9);
 
     return 0;
 }
