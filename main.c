@@ -72,7 +72,7 @@ int main() {
 		
 	}while(jogadas <= 9);
 	
-	if(vez != 'a'){
+	if(vitoria){
 		printf("Parabens!\n");
 		printf("O %c é o vencedor.\n\n", vez);
 	}else
