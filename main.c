@@ -7,7 +7,7 @@ void ImprimeInicial();
 
 int main() {
 	setlocale(LC_ALL, "Portuguese");
-    char velha[9], vez, posicao;
+    char velha[9], vez, posicao, vencedor = 'a';
     int i, disponivel;
     
     for(i=0; i<9; i++)
@@ -56,12 +56,19 @@ int main() {
 			
 		}while(posicao < 49 || posicao > 57 || !(disponivel));
 		
+		if(velha[0] == velha[1] && velha[0] == velha[2] || velha[3] == velha[4] && velha[3] == velha[5] || velha[6] == velha[7] && velha[6] == velha[8])
+			vencedor = vez;
+		if(velha[0] == velha[3] && velha[0] == velha[6] || velha[1] == velha[4] && velha[1] == velha[7] || velha[2] == velha[5] && velha[2] == velha[8])
+			vencedor = vez;
+		if(velha[0] == velha[4] && velha[0] == velha[8] || velha[2] == velha[4] && velha[2] == velha[6])
+			vencedor = vez;
+		
 		if(vez == 'X')
 			vez = 'O';
 		else
 			vez = 'X';
 			
-	}while(1);
+	}while(vencedor == 'a');
 
     return 0;
 }
