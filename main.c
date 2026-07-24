@@ -67,7 +67,13 @@ int main() {
 			
 		jogadas++;
 		
-	}while(vencedor == 'a' || jogadas < 9);
+	}while(vencedor == 'a' && jogadas <= 9);
+	
+	if(vencedor != 'a'){
+		printf("Parabens!\n");
+		printf("O %c é o vencedor.\n", vencedor);
+	}else
+	printf("Deu empate!\n");
 
     return 0;
 }
