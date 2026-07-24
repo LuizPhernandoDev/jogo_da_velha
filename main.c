@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <locale.h>
 #include <stdlib.h>
+#include <string.h>
 
 void ImprimeLayout(char velha[],int n);
 void ImprimeInicial();
@@ -101,14 +102,26 @@ void ImprimeInicial(){
 }
 
 void ImprimeLayout(char velha[], int n){
+	char cor[9][10];
+	char X[10] = "\033[94m";
+	char O[10] = "\033[91m";
+	
+	for(int i = 0; i<9; i++){
+		snprintf(cor[i], sizeof(cor[i]), "\033[0m");
+		if(velha[i] == 'X')
+			strcpy(cor[i], X);
+		else if(velha[i] == 'O')
+			strcpy(cor[i], O);
+	}
+		
 	printf("       |       |       \n");
-    printf("   %c   |   %c   |   %c  \n", velha[0], velha[1], velha[2]);
+    printf("   %s%c\033[0m   |   %s%c\033[0m   |   %s%c\033[0m \n", cor[0], velha[0], cor[1], velha[1], cor[2], velha[2]);
     printf("_______|_______|_______\n");
     printf("       |       |       \n");
-    printf("   %c   |   %c   |   %c  \n", velha[3], velha[4], velha[5]);
+    printf("   %s%c\033[0m   |   %s%c\033[0m   |   %s%c\033[0m \n", cor[3], velha[3], cor[4], velha[4], cor[5], velha[5]);
     printf("_______|_______|_______\n");
     printf("       |       |       \n");
-    printf("   %c   |   %c   |   %c  \n", velha[6], velha[7], velha[8]);
+    printf("   %s%c\033[0m   |   %s%c\033[0m   |   %s%c\033[0m \n", cor[6], velha[6], cor[7], velha[7], cor[8], velha[8]);
     printf("       |       |       \n");
 }
 
