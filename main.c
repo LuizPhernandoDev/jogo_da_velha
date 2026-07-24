@@ -8,7 +8,7 @@ void ImprimeInicial();
 int main() {
 	setlocale(LC_ALL, "Portuguese");
     char velha[9], vez, posicao;
-    int i;
+    int i, disponivel;
     
     for(i=0; i<9; i++)
     	velha[i] = 49 + i;
@@ -28,6 +28,8 @@ int main() {
 	}while(vez!='X' && vez!='O');
     do{
     	do{
+    		disponivel = 0;
+    		
 			ImprimeLayout(velha, sizeof(velha));
 			
 			printf("É a vez do %c jogar, escolha a posição: \n", vez);
@@ -35,20 +37,24 @@ int main() {
 			
 			for(i=0; i<9; i++)
 				if(velha[i] == 49+i)
-					printf("[%c] ", velha[i]);	
+					printf("[%c] ", velha[i]);
 			putchar('\n');
 			
 			fflush(stdin);
 			posicao = getchar();
 			
+			for(i=0; i<9; i++)
+				if(velha[i] == posicao)
+					disponivel++;
+			
 			system("cls");
 			
-			if(posicao < 49 || posicao > 57)
+			if(posicao < 49 || posicao > 57 || !(disponivel))
 				printf("          Invalido!\n");
 			else
 				velha[posicao-49] = vez;
-				
-		}while(posicao < 49 || posicao > 57);
+			
+		}while(posicao < 49 || posicao > 57 || !(disponivel));
 		
 		if(vez == 'X')
 			vez = 'O';
