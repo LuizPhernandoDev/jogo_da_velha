@@ -124,11 +124,11 @@ void ImprimeLayout(char velha[], int n){
 	printf("       ³       ³       \n");
     printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m \n", cor[0], velha[0], cor[1], velha[1], cor[2], velha[2]);
     printf("       ³       ³       \n");
-    printf("ÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ\n", 197, 197);
+    printf("ÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ\n");
     printf("       ³       ³       \n");
     printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m \n", cor[3], velha[3], cor[4], velha[4], cor[5], velha[5]);
     printf("       ³       ³       \n");
-    printf("ÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ\n", 197, 197);
+    printf("ÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ\n");
     printf("       ³       ³       \n");
     printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m \n", cor[6], velha[6], cor[7], velha[7], cor[8], velha[8]);
     printf("       ³       ³       \n");
@@ -154,7 +154,6 @@ void CondicaoVitoria(char velha[], int n, int *vitoria){
 		*vitoria = 8;
 	else
 		*vitoria = 0;
-   
 }
 
 void resultado(char velha[], int n, int vitoria, char vez){
@@ -182,11 +181,11 @@ void resultado(char velha[], int n, int vitoria, char vez){
 			printf("       ³       ³       \n");
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[0], velha[0], cor[1], velha[1], cor[2], velha[2]);
 		    printf("       ³       ³       \n");
-		    printf("ÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ\n", 197, 197);
+		    printf("ÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ\n");
 		    printf("       ³       ³       \n");
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[3], velha[3], cor[4], velha[4], cor[5], velha[5]);
 		    printf("       ³       ³       \n");
-		    printf("ÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ\n", 197, 197);
+		    printf("ÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ\n");
 		    printf("       ³       ³       \n");
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[6], velha[6], cor[7], velha[7], cor[8], velha[8]);
 		    printf("       ³       ³       \n");
@@ -195,37 +194,38 @@ void resultado(char velha[], int n, int vitoria, char vez){
 			printf("       ³       ³       \n");
 		    printf("%sÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄ\033[0m\n", CorVitoria, velha[0], velha[1], velha[2]);
 		    printf("       ³       ³       \n");
-		    printf("ÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ\n", 197, 197);
+		    printf("ÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ\n");
 		    printf("       ³       ³       \n");
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[3], velha[3], cor[4], velha[4], cor[5], velha[5]);
 		    printf("       ³       ³       \n");
-		    printf("ÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ\n", 197, 197);
+		    printf("ÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ\n");
 		    printf("       ³       ³       \n");
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[6], velha[6], cor[7], velha[7], cor[8], velha[8]);
 		    printf("       ³       ³       \n");
 		    break;
 		case 2:
 			printf("       ³       ³       \n");
-		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[0], cor[1], velha[0], velha[1], cor[2], velha[2]);
+		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m \n", cor[0], velha[0], cor[1], velha[1], cor[2], velha[2]);
 		    printf("       ³       ³       \n");
-		    printf("ÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ\n", 197, 197);
+		    printf("ÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ\n");
 		    printf("       ³       ³       \n");
 		    printf("%sÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄ\033[0m\n", CorVitoria, velha[3], velha[4], velha[5]);
 		    printf("       ³       ³       \n");
-		    printf("ÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ\n", 197, 197);
+		    printf("ÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ\n");
 		    printf("       ³       ³       \n");
-		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[6], velha[6], cor[7], velha[7], cor[8], velha[8]);
+		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m \n", cor[6], velha[6], cor[7], velha[7], cor[8], velha[8]);
+		    printf("       ³       ³       \n");
 		    printf("       ³       ³       \n");
 		    break;
 		case 3:
 			printf("       ³       ³       \n");
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[0], velha[0], cor[1], velha[1], cor[2], velha[2]);
 		    printf("       ³       ³       \n");
-		    printf("ÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ\n", 197, 197);
+		    printf("ÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ\n");
 		    printf("       ³       ³       \n");
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[3], velha[3], cor[4], velha[4], cor[5], velha[5]);
 		    printf("       ³       ³       \n");
-		    printf("ÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ\n", 197, 197);
+		    printf("ÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ\n");
 		    printf("       ³       ³       \n");
 		    printf("%sÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄ\033[0m\n", CorVitoria, velha[6], velha[7], velha[8]);
 		    printf("       ³       ³       \n");
@@ -234,11 +234,11 @@ void resultado(char velha[], int n, int vitoria, char vez){
 			printf("   %s³\033[0m   ³       ³       \n", CorVitoria);
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[0], velha[0], cor[1], velha[1], cor[2], velha[2]);
 		    printf("   %s³\033[0m   ³       ³       \n", CorVitoria);
-		    printf("ÄÄÄ%s³\033[0mÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ\n", CorVitoria, 197, 197);
+		    printf("ÄÄÄ%s³\033[0mÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ\n", CorVitoria);
 		    printf("   %s³\033[0m   ³       ³       \n", CorVitoria);
 		    printf("   %s%c\033[0m\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[3], velha[3], cor[4], velha[4], cor[5], velha[5]);
 		    printf("   %s³\033[0m   ³       ³       \n", CorVitoria);
-		    printf("ÄÄÄ%s³\033[0mÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ\n", CorVitoria, 197, 197);
+		    printf("ÄÄÄ%s³\033[0mÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ\n", CorVitoria);
 		    printf("   %s³\033[0m   ³       ³       \n", CorVitoria);
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[6], velha[6], cor[7], velha[7], cor[8], velha[8]);
 		    printf("   %s³\033[0m   ³       ³       \n", CorVitoria);
@@ -247,11 +247,11 @@ void resultado(char velha[], int n, int vitoria, char vez){
 			printf("       ³   %s³\033[0m   ³       \n", CorVitoria);
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[0], velha[0], cor[1], velha[1], cor[2], velha[2]);
 		    printf("       ³   %s³\033[0m   ³       \n", CorVitoria);
-		    printf("ÄÄÄÄÄÄÄ%cÄÄÄ%s³\033[0mÄÄÄ%cÄÄÄÄÄÄÄ\n", 197, CorVitoria, 197);
+		    printf("ÄÄÄÄÄÄÄÅÄÄÄ%s³\033[0mÄÄÄÅÄÄÄÄÄÄÄ\n", CorVitoria);
 		    printf("       ³   %s³\033[0m   ³       \n", CorVitoria);
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[3], velha[3], cor[4], velha[4], cor[5], velha[5]);
 		    printf("       ³   %s³\033[0m   ³       \n", CorVitoria);
-		    printf("ÄÄÄÄÄÄÄ%cÄÄÄ%s³\033[0mÄÄÄ%cÄÄÄÄÄÄÄ\n", 197, CorVitoria, 197);
+		    printf("ÄÄÄÄÄÄÄÅÄÄÄ%s³\033[0mÄÄÄÅÄÄÄÄÄÄÄ\n", CorVitoria);
 		    printf("       ³   %s³\033[0m   ³       \n", CorVitoria);
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[6], velha[6], cor[7], velha[7], cor[8], velha[8]);
 		    printf("       ³   %s³\033[0m   ³       \n", CorVitoria);
@@ -260,11 +260,11 @@ void resultado(char velha[], int n, int vitoria, char vez){
 			printf("       ³       ³   %s³\033[0m   \n", CorVitoria);
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[0], velha[0], cor[1], velha[1], cor[2], velha[2]);
 		    printf("       ³       ³   %s³\033[0m   \n", CorVitoria);
-		    printf("ÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄ%s³\033[0mÄÄÄ\n", 197, 197, CorVitoria);
+		    printf("ÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄ%s³\033[0mÄÄÄ\n", CorVitoria);
 		    printf("       ³       ³   %s³\033[0m   \n", CorVitoria);
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[3], velha[3], cor[4], velha[4], cor[5], velha[5]);
 		    printf("       ³       ³   %s³\033[0m   \n", CorVitoria);
-		    printf("ÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%cÄÄÄ%s³\033[0mÄÄÄ\n", 197, 197, CorVitoria);
+		    printf("ÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÅÄÄÄ%s³\033[0mÄÄÄ\n", CorVitoria);
 		    printf("       ³       ³   %s³\033[0m   \n", CorVitoria);
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[6], velha[6], cor[7], velha[7], cor[8], velha[8]);
 		    printf("       ³       ³   %s³\033[0m   \n", CorVitoria);
@@ -273,11 +273,11 @@ void resultado(char velha[], int n, int vitoria, char vez){
 			printf(" %s\\_\033[0m    ³       ³       \n", CorVitoria);
 		    printf("   %s%c_\033[0m  ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[0], velha[0], cor[1], velha[1], cor[2], velha[2]);
 		    printf("     %s\\_\033[0m³       ³       \n", CorVitoria);
-		    printf("ÄÄÄÄÄÄÄ%s\\\033[0mÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ\n", CorVitoria, 197);
+		    printf("ÄÄÄÄÄÄÄ%s\\\033[0mÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ\n", CorVitoria);
 		    printf("       ³ %s\\_\033[0m    ³       \n", CorVitoria);
 		    printf("   %s%c\033[0m   ³   %s%c_\033[0m  ³   %s%c\033[0m\n", cor[3], velha[3], cor[4], velha[4], cor[5], velha[5]);
 		    printf("       ³     %s\\_\033[0m³       \n", CorVitoria);
-		    printf("ÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%s\\\033[0mÄÄÄÄÄÄÄ\n", 197, CorVitoria);
+		    printf("ÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ%s\\\033[0mÄÄÄÄÄÄÄ\n", CorVitoria);
 		    printf("       ³       ³ %s\\_\033[0m    \n", CorVitoria);
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c_\033[0m\n", cor[6], velha[6], cor[7], velha[7], cor[8], velha[8]);
 		    printf("       ³       ³     %s\\\033[0m \n", CorVitoria);
@@ -286,11 +286,11 @@ void resultado(char velha[], int n, int vitoria, char vez){
 			printf("       ³       ³    %s_/\033[0m \n", CorVitoria);
 		    printf("   %s%c\033[0m   ³   %s%c\033[0m   ³  %s_%c\033[0m\n", cor[0], velha[0], cor[1], velha[1], cor[2], velha[2]);
 		    printf("       ³       ³%s_/\033[0m     \n", CorVitoria);
-		    printf("ÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ%s/\033[0mÄÄÄÄÄÄÄ\n", 197, CorVitoria);
+		    printf("ÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ%s/\033[0mÄÄÄÄÄÄÄ\n", CorVitoria);
 		    printf("       ³    %s_/\033[0m ³       \n", CorVitoria);
 		    printf("   %s%c\033[0m   ³  %s_%c\033[0m   ³   %s%c\033[0m\n", cor[3], velha[3], cor[4], velha[4], cor[5], velha[5]);
 		    printf("       ³%s_/\033[0m     ³       \n", CorVitoria);
-		    printf("ÄÄÄÄÄÄÄ%s/\033[0mÄÄÄÄÄÄÄ%cÄÄÄÄÄÄÄ\n", CorVitoria, 197);
+		    printf("ÄÄÄÄÄÄÄ%s/\033[0mÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄ\n", CorVitoria);
 		    printf("    %s_/\033[0m ³       ³       \n", CorVitoria);
 		    printf("  %s_%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", cor[6], velha[6], cor[7], velha[7], cor[8], velha[8]);
 		    printf(" %s/\033[0m     ³       ³       \n", CorVitoria);
