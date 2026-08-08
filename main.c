@@ -11,75 +11,100 @@ void limpaBuffer();
 
 int main() {
     setlocale(LC_ALL, "Portuguese");
-    char velha[9], vez, posicao;
-    int disponivel, jogadas, vitoria = 0;
-    
-    for(int i = 0; i < 9; i++)
-        velha[i] = '1' + i;
-    
+    char velha[9], vez, posicao, novamente;
+    int disponivel, jogadas, vitoria;
+
     do {
         ImprimeInicial();
         printf("Pressione [X] ou [O] para começar: ");
         vez = getchar();
         limpaBuffer();
-        
+
         system("cls");
-        
+
         if(vez != 'x' && vez != 'o' && vez != 'X' && vez != 'O')
             printf("          Invalido!\n");
         else if(vez == 'x' || vez == 'o')
             vez -= 32;
-    
-        jogadas = 1;    
-    } while(vez != 'X' && vez != 'O');
 
-    do {
+    } while(vez != 'X' && vez != 'O');
+	
+	do {
+        vitoria = 0;
+        jogadas = 1;
+
+        for(int i = 0; i < 9; i++)
+            velha[i] = '1' + i;
+            
         do {
-            disponivel = 0;
-            
-            ImprimeLayout(velha, sizeof(velha));
-            
-            printf("É a vez do %c jogar, escolha a posição: \n", vez);
-            printf("Disponíveis: ");
-            
-            for(int i = 0; i < 9; i++)
-                if(velha[i] == '1' + i)
-                    printf("[%c] ", velha[i]);
-            putchar('\n');
-            
-            posicao = getchar();
+            do {
+                disponivel = 0;
+
+                ImprimeLayout(velha, sizeof(velha));
+
+                printf("É a vez do %c jogar, escolha a posição: \n", vez);
+                printf("Disponíveis: ");
+
+                for(int i = 0; i < 9; i++)
+                    if(velha[i] == '1' + i)
+                        printf("[%c] ", velha[i]);
+                putchar('\n');
+
+                posicao = getchar();
+                limpaBuffer();
+
+                for(int i = 0; i < 9; i++)
+                    if(velha[i] == posicao)
+                        disponivel++;
+
+                system("cls");
+
+                if(posicao < '1' || posicao > '9' || !(disponivel))
+                    printf("          Invalido!\n");
+                else
+                    velha[posicao - '1'] = vez;
+
+            } while(posicao < '1' || posicao > '9' || !(disponivel));
+
+            CondicaoVitoria(velha, sizeof(velha), &vitoria);
+            if(vitoria)
+                break;
+
+            vez = (vez == 'X') ? 'O' : 'X';
+            jogadas++;
+
+        } while(jogadas <= 9);
+
+        if(vitoria) {
+            printf("Parabéns!\n");
+            printf("O %c é o vencedor.\n\n", vez);
+        } else {
+            printf("Deu empate!\n\n");
+        }
+
+        resultado(velha, sizeof(velha), vitoria, vez);
+		
+		system("pause");
+		system("cls");
+		
+        do {
+            printf("Quer jogar novamente:\n");
+            printf("[S] Sim\n");
+            printf("[N] Não\n");
+            novamente = getchar();
             limpaBuffer();
-            
-            for(int i = 0; i < 9; i++)
-                if(velha[i] == posicao)
-                    disponivel++;
-            
+
+            if(novamente == 's' || novamente == 'n')
+                novamente -= 32;
+
             system("cls");
-            
-            if(posicao < '1' || posicao > '9' || !(disponivel))
+
+            if(novamente != 'S' && novamente != 'N')
                 printf("          Invalido!\n");
-            else
-                velha[posicao - '1'] = vez;
-            
-        } while(posicao < '1' || posicao > '9' || !(disponivel));
-        
-        CondicaoVitoria(velha, sizeof(velha), &vitoria);
-        if(vitoria)
-            break;
-        
-        vez = (vez == 'X') ? 'O' : 'X';
-        jogadas++;
-        
-    } while(jogadas <= 9);
-    
-    if(vitoria) {
-        printf("Parabéns!\n");
-        printf("O %c é o vencedor.\n\n", vez);
-    } else {
-        printf("Deu empate!\n\n");
-    }
-    
-    resultado(velha, sizeof(velha), vitoria, vez);
+
+        } while(novamente != 'S' && novamente != 'N');
+
+    } while(novamente == 'S');
 
     return 0;
 }
@@ -96,13 +121,13 @@ void ImprimeInicial() {
     printf("   ±  ±   ± ±  ±± ±   ±\n");
     printf("±  ±  ±   ± ±   ± ±   ±\n");
     printf(" ±±    ±±±   ±±±   ±±± \n\n");
-    
+
     printf("±±±±   ±±± \n");
     printf("±   ± ±   ±\n");
     printf("±   ± ±±±±±\n");
     printf("±   ± ±   ±\n");
     printf("±±±±  ±   ±\n\n");
-    
+
     printf("±   ± ±±±±± ±     ±   ±  ±±± \n");
     printf("±   ± ±     ±     ±   ± ±   ±\n");
     printf("±   ± ±±±±  ±     ±±±±± ±±±±±\n");
@@ -116,16 +141,16 @@ void ImprimeLayout(char velha[], int n) {
     char cor[9][10];
     char X[10] = "\033[94m";
     char O[10] = "\033[91m";
-    
+
     for(int i = 0; i < 9; i++) {
         if(velha[i] == 'X')
             strcpy(cor[i], X);
         else if(velha[i] == 'O')
             strcpy(cor[i], O);
         else
-            snprintf(cor[i], sizeof(cor[i]), "\033[0m");    
+            snprintf(cor[i], sizeof(cor[i]), "\033[0m");
     }
-        
+
     printf("       ³       ³       \n");
     printf("   %s%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m \n", cor[0], velha[0], cor[1], velha[1], cor[2], velha[2]);
     printf("       ³       ³       \n");
@@ -158,7 +183,7 @@ void resultado(char velha[], int n, int vitoria, char vez) {
     char CorVitoria[10] = "\033[0m";
     char X[10] = "\033[94m";
     char O[10] = "\033[91m";
-    
+
     for(int i = 0; i < 9; i++) {
         if(velha[i] == 'X')
             strcpy(cor[i], X);
@@ -171,7 +196,7 @@ void resultado(char velha[], int n, int vitoria, char vez) {
         strcpy(CorVitoria, X);
     else if(vez == 'O')
         strcpy(CorVitoria, O);
-    
+
     switch (vitoria) {
         case 0:
             printf("       ³       ³       \n");
