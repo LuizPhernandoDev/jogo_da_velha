@@ -11,7 +11,7 @@ void limpaBuffer();
 
 int main() {
     setlocale(LC_ALL, "Portuguese");
-    char velha[9], vez, posicao, novamente;
+    char velha[9], vez, posicao, novamente, ptsX=0, ptsO=0;
     int disponivel, jogadas, vitoria;
 
     do {
@@ -75,9 +75,10 @@ int main() {
             } while(posicao < '1' || posicao > '9' || !(disponivel));
 
             CondicaoVitoria(velha, sizeof(velha), &vitoria);
-            if(vitoria)
-                break;
-
+            if(vitoria){
+            	(vez == 'X') ? ptsX++ : ptsO++;
+            	break;
+			}
             vez = (vez == 'X') ? 'O' : 'X';
             jogadas++;
 
@@ -96,6 +97,16 @@ int main() {
         }
 
         resultado(velha, sizeof(velha), vitoria, vez);
+		
+		setlocale(LC_ALL, "C");
+		printf("%90s\033[9A ÚÄÄÄÄÄÄÄÄÄÄÄ¿\033[1B", "");
+	    printf("\033[14D ³   PLACAR  ³\033[1B");
+	    printf("\033[14D ÃÄÄÄÄÄÂÄÄÄÄÄ´\033[1B");
+	    printf("\033[14D ³  X  ³  O  ³\033[1B");
+	    printf("\033[14D ÃÄÄÄÄÄÅÄÄÄÄÄ´\033[1B");
+	    printf("\033[14D ³%3d  ³%3d  ³\033[1B", ptsX, ptsO);
+	    printf("\033[14D ÀÄÄÄÄÄÁÄÄÄÄÄÙ\033[3E");
+		setlocale(LC_ALL, "Portuguese");
 		
 		printf("%37s", "");
 		system("pause");
@@ -332,6 +343,6 @@ void resultado(char velha[], int n, int vitoria, char vez) {
             printf("%48s  %s_%c\033[0m   ³   %s%c\033[0m   ³   %s%c\033[0m\n", "", cor[6], velha[6], cor[7], velha[7], cor[8], velha[8]);
             printf("%48s %s/\033[0m     ³       ³       \n\n", "", CorVitoria);
             break;
-    }
+	}
     setlocale(LC_ALL, "Portuguese");
 }
