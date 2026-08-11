@@ -45,10 +45,10 @@ int main() {
                 ImprimeLayout(velha, sizeof(velha));
                 
                 printf("\n\n%41sÉ a vez do ", "");
-                if(vez=='X')
-                	printf("\033[94m");
-                else
-                	printf("\033[91m");
+                 if(vez=='X')
+            	printf("\033[91m");
+            else
+            	printf("\033[94m");
                 printf("%c\033[m jogar, escolha a posição: \n", vez);
                 printf("%36sDisponíveis: ", "");
 
@@ -88,9 +88,9 @@ int main() {
             printf("%55sParabéns!\n", "");
             printf("%52sO ", "");
             if(vez=='X')
-            	printf("\033[94m");
-            else
             	printf("\033[91m");
+            else
+            	printf("\033[94m");
             printf("%c\033[0m é o vencedor\n\n", vez);
         } else {
             printf("%53sDeu empate!\n\n", "");
@@ -167,8 +167,8 @@ void ImprimeInicial() {
 void ImprimeLayout(char velha[], int n) {
     setlocale(LC_ALL, "C");
     char cor[9][10];
-    char X[10] = "\033[94m";
-    char O[10] = "\033[91m";
+    char X[10] = "\033[91m";
+    char O[10] = "\033[94m";
 
     for(int i = 0; i < 9; i++) {
         if(velha[i] == 'X')
@@ -209,8 +209,8 @@ void resultado(char velha[], int n, int vitoria, char vez) {
     setlocale(LC_ALL, "C");
     char cor[9][10];
     char CorVitoria[10] = "\033[0m";
-    char X[10] = "\033[94m";
-    char O[10] = "\033[91m";
+    char X[10] = "\033[91m";
+    char O[10] = "\033[94m";
 
     for(int i = 0; i < 9; i++) {
         if(velha[i] == 'X')
@@ -344,5 +344,4 @@ void resultado(char velha[], int n, int vitoria, char vez) {
             printf("%48s %s/\033[0m     ³       ³       \n\n", "", CorVitoria);
             break;
 	}
-    setlocale(LC_ALL, "Portuguese");
 }
