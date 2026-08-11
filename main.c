@@ -44,7 +44,12 @@ int main() {
                 printf("\n\n\n");
                 ImprimeLayout(velha, sizeof(velha));
                 
-                printf("\n\n%41sÉ a vez do %c jogar, escolha a posição: \n", "", vez);
+                printf("\n\n%41sÉ a vez do ", "");
+                if(vez=='X')
+                	printf("\033[94m");
+                else
+                	printf("\033[91m");
+                printf("%c\033[m jogar, escolha a posição: \n", vez);
                 printf("%36sDisponíveis: ", "");
 
                 for(int i = 0; i < 9; i++)
@@ -80,7 +85,12 @@ int main() {
 
         if(vitoria) {
             printf("%55sParabéns!\n", "");
-            printf("%52sO %c é o vencedor\n\n", "", vez);
+            printf("%52sO ", "");
+            if(vez=='X')
+            	printf("\033[94m");
+            else
+            	printf("\033[91m");
+            printf("%c\033[0m é o vencedor\n\n", vez);
         } else {
             printf("%53sDeu empate!\n\n", "");
         }
@@ -109,7 +119,8 @@ int main() {
                 printf("%55sInvalido!\n", "");
 
         } while(novamente != 'S' && novamente != 'N');
-
+        if(vitoria)
+			vez = (vez == 'X') ? 'O' : 'X';
     } while(novamente == 'S');
 
     return 0;
