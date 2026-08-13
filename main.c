@@ -8,6 +8,7 @@ void ImprimeInicial();
 void CondicaoVitoria(char velha[], int n, int *vitoria);
 void resultado(char velha[], int n, int vitoria, char vez);
 void limpaBuffer();
+void imprimePlacar(int ptsX, int ptsO)
 
 int main() {
     setlocale(LC_ALL, "Portuguese");
@@ -98,15 +99,7 @@ int main() {
 
         resultado(velha, sizeof(velha), vitoria, vez);
 		
-		setlocale(LC_ALL, "C");
-		printf("%90s\033[9A ÚÄÄÄÄÄÄÄÄÄÄÄ¿\033[1B", "");
-	    printf("\033[14D ³   PLACAR  ³\033[1B");
-	    printf("\033[14D ÃÄÄÄÄÄÂÄÄÄÄÄ´\033[1B");
-	    printf("\033[14D ³  X  ³  O  ³\033[1B");
-	    printf("\033[14D ÃÄÄÄÄÄÅÄÄÄÄÄ´\033[1B");
-	    printf("\033[14D ³%3d  ³%3d  ³\033[1B", ptsX, ptsO);
-	    printf("\033[14D ÀÄÄÄÄÄÁÄÄÄÄÄÙ\033[3E");
-		setlocale(LC_ALL, "Portuguese");
+		imprimePlacar(ptsX, ptsO);
 		
 		printf("%37s", "");
 		system("pause");
@@ -135,6 +128,17 @@ int main() {
     } while(novamente == 'S');
 
     return 0;
+}
+void imprimePlacar(int ptsX,int ptsO){
+	setlocale(LC_ALL, "C");
+	printf("%90s\033[9A ÚÄÄÄÄÄÄÄÄÄÄÄ¿\033[1B", "");
+    printf("\033[14D ³   PLACAR  ³\033[1B");
+    printf("\033[14D ÃÄÄÄÄÄÂÄÄÄÄÄ´\033[1B");
+    printf("\033[14D ³  X  ³  O  ³\033[1B");
+    printf("\033[14D ÃÄÄÄÄÄÅÄÄÄÄÄ´\033[1B");
+    printf("\033[14D ³%3d  ³%3d  ³\033[1B", ptsX, ptsO);
+    printf("\033[14D ÀÄÄÄÄÄÁÄÄÄÄÄÙ\033[3E");
+	setlocale(LC_ALL, "Portuguese");
 }
 
 void limpaBuffer() {
