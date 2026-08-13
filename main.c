@@ -8,16 +8,28 @@ void ImprimeInicial();
 void CondicaoVitoria(char velha[], int n, int *vitoria);
 void resultado(char velha[], int n, int vitoria, char vez);
 void limpaBuffer();
-void imprimePlacar(int ptsX, int ptsO)
+void imprimePlacar(int ptsX, int ptsO);
 
 int main() {
     setlocale(LC_ALL, "Portuguese");
-    char velha[9], vez, posicao, novamente, ptsX=0, ptsO=0;
+    char velha[9], vez, posicao, novamente, ptsX=0, ptsO=0, jogdor1[50], jogdor2[50];
     int disponivel, jogadas, vitoria;
 
+    ImprimeInicial();
+    printf("%46sDigíte o nome do 1° jogador: \n\n","");
+    printf("%55s","");
+    fgets(jogdor1, sizeof(jogdor1), stdin);
+    system("cls");
+    ImprimeInicial();
+    
+    printf("%46sDigíte o nome do 2° jogador: \n\n","");
+    printf("%55s","");
+    fgets(jogdor2, sizeof(jogdor2), stdin);
+    system("cls");
+    ImprimeInicial();
+        
     do {
-        ImprimeInicial();
-        printf("%42sPressione [X] ou [O] para começar:\n\n","");
+        printf("%43sPressione [X] ou [O] para começar:\n\n","");
         printf("%59s", "");
         vez = getchar();
         limpaBuffer();
