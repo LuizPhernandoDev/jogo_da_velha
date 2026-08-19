@@ -2,33 +2,37 @@
 #include <locale.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 void ImprimeLayout(char velha[], int n);
 void ImprimeInicial();
 void CondicaoVitoria(char velha[], int n, int *vitoria);
 void resultado(char velha[], int n, int vitoria, char vez);
 void limpaBuffer();
-void imprimePlacar(int ptsX, int ptsO);
+void imprimePlacar(int ptsX, int ptsO, const char *jogador1, const char *jogador2, const char VezJogador1);
 
 int main() {
     setlocale(LC_ALL, "Portuguese");
-    char velha[9], vez, posicao, novamente, ptsX=0, ptsO=0, jogdor1[50], jogdor2[50];
+    char velha[9], vez, posicao, novamente, ptsX=0, ptsO=0, jogador1[50], jogador2[50], VezJogador[50], VezJogador1;
     int disponivel, jogadas, vitoria;
 
     ImprimeInicial();
     printf("%46sDigíte o nome do 1° jogador: \n\n","");
     printf("%55s","");
-    fgets(jogdor1, sizeof(jogdor1), stdin);
+    fgets(jogador1, sizeof(jogador1), stdin);
+    jogador1[strlen(jogador1+1)] = '\0';
+    snprintf(VezJogador, sizeof(VezJogador), jogador1);
     system("cls");
     ImprimeInicial();
     
     printf("%46sDigíte o nome do 2° jogador: \n\n","");
     printf("%55s","");
-    fgets(jogdor2, sizeof(jogdor2), stdin);
+    fgets(jogador2, sizeof(jogador2), stdin);
+    jogador2[strlen(jogador2+1)] = '\0';
     system("cls");
-    ImprimeInicial();
         
     do {
+    	ImprimeInicial();
         printf("%43sPressione [X] ou [O] para começar:\n\n","");
         printf("%59s", "");
         vez = getchar();
@@ -42,7 +46,7 @@ int main() {
             vez -= 32;
 
     } while(vez != 'X' && vez != 'O');
-	
+	VezJogador1=vez;
 	do {
         vitoria = 0;
         jogadas = 1;
@@ -57,12 +61,12 @@ int main() {
                 printf("\n\n\n");
                 ImprimeLayout(velha, sizeof(velha));
                 
-                printf("\n\n%41sÉ a vez do ", "");
+                printf("\n\n%41sÉ a vez de ", "");
                  if(vez=='X')
             	printf("\033[91m");
             else
             	printf("\033[94m");
-                printf("%c\033[m jogar, escolha a posição: \n", vez);
+                printf("%s\033[m jogar, escolha a posição: \n", VezJogador);
                 printf("%36sDisponíveis: ", "");
 
                 for(int i = 0; i < 9; i++)
@@ -93,6 +97,10 @@ int main() {
             	break;
 			}
             vez = (vez == 'X') ? 'O' : 'X';
+            if(!strcmp(VezJogador, jogador1))
+            	snprintf(VezJogador, sizeof(VezJogador), jogador2);
+            else
+            	snprintf(VezJogador, sizeof(VezJogador), jogador1);
             jogadas++;
 
         } while(jogadas <= 9);
@@ -104,14 +112,14 @@ int main() {
             	printf("\033[91m");
             else
             	printf("\033[94m");
-            printf("%c\033[0m é o vencedor\n\n", vez);
+            printf("%s\033[0m é o vencedor\n\n", VezJogador);
         } else {
             printf("%53sDeu empate!\n\n", "");
         }
 
         resultado(velha, sizeof(velha), vitoria, vez);
 		
-		imprimePlacar(ptsX, ptsO);
+		imprimePlacar(ptsX, ptsO, jogador1, jogador2, VezJogador1);
 		
 		printf("%37s", "");
 		system("pause");
@@ -141,15 +149,44 @@ int main() {
 
     return 0;
 }
-void imprimePlacar(int ptsX,int ptsO){
+void imprimePlacar(int ptsX, int ptsO, const char *jogador1, const char *jogador2, const char VezJogador1){
 	setlocale(LC_ALL, "C");
-	printf("%90s\033[9A ÚÄÄÄÄÄÄÄÄÄÄÄ¿\033[1B", "");
-    printf("\033[14D ³   PLACAR  ³\033[1B");
-    printf("\033[14D ÃÄÄÄÄÄÂÄÄÄÄÄ´\033[1B");
-    printf("\033[14D ³  X  ³  O  ³\033[1B");
-    printf("\033[14D ÃÄÄÄÄÄÅÄÄÄÄÄ´\033[1B");
-    printf("\033[14D ³%3d  ³%3d  ³\033[1B", ptsX, ptsO);
-    printf("\033[14D ÀÄÄÄÄÄÁÄÄÄÄÄÙ\033[3E");
+	int tam1 = strlen(jogador1);
+	int tam2 = strlen(jogador2);
+	int maior = (tam1>tam2)?tam1:tam2;
+	int tamTotal = 2*maior+7;
+	printf("%90s\033[9AÚ", "");
+	for(int i=0; i<tamTotal-2; i++)
+		printf("Ä");
+	printf("¿\033[1B");
+    printf("\033[%dD³%*sPLACAR%*s³\033[1B", tamTotal, maior-1, "", maior, "");
+    
+    printf("\033[%dDÃ", tamTotal);
+    for(int i=0; i<maior+2; i++)
+    	printf("Ä");
+    printf("Â");
+    for(int i=0; i<maior+2; i++)
+    	printf("Ä");
+    printf("´\033[1B");
+    
+    printf("\033[%dD³ %*s%*s ³ %*s%*s ³\033[1B", tamTotal, (int)ceil(maior/2.0+tam1/2.0), jogador1, (int)ceil(tam1/2.0-maior/2.0), "", (int)ceil(maior/2.0+tam2/2.0), jogador2, (int)ceil(tam2/2.0-maior/2.0), "");
+    
+    printf("\033[%dDÃ", tamTotal);
+    for(int i=0; i<maior+2; i++)
+    	printf("Ä");
+    printf("Å");
+    for(int i=0; i<maior+2; i++)
+    	printf("Ä");
+    printf("´\033[1B");
+    
+    printf("\033[%dD³ %*d%*s ³ %*d%*s ³\033[1B", tamTotal, maior/2+1, ptsX, (maior%2)?maior/2:maior/2-1, "", maior/2+1, ptsO, (maior%2)?maior/2:maior/2-1, "");
+    printf("\033[%dDÀ", tamTotal);
+    for(int i=0; i<maior+2; i++)
+    	printf("Ä");
+    printf("Á");
+    for(int i=0; i<maior+2; i++)
+    	printf("Ä");
+    printf("Ù\033[3E");
 	setlocale(LC_ALL, "Portuguese");
 }
 
