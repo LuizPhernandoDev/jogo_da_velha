@@ -178,9 +178,11 @@ void imprimePlacar(int ptsX, int ptsO, const char *jogador1, const char *jogador
     for(int i=0; i<maior+2; i++)
     	printf("Ä");
     printf("´\033[1B");
-    
-    printf("\033[%dD³ %*d%*s ³ %*d%*s ³\033[1B", tamTotal, maior/2+1, ptsX, (maior%2)?maior/2:maior/2-1, "", maior/2+1, ptsO, (maior%2)?maior/2:maior/2-1, "");
-    printf("\033[%dDÀ", tamTotal);
+    if(VezJogador1==X)
+    	printf("\033[%dD³ %*d%*s ³ %*d%*s ³\033[1B", tamTotal, maior/2+1, ptsX, (maior%2)?maior/2:maior/2-1, "", maior/2+1, ptsO, (maior%2)?maior/2:maior/2-1, "");
+    else
+    	printf("\033[%dD³ %*d%*s ³ %*d%*s ³\033[1B", tamTotal, maior/2+1, ptsO, (maior%2)?maior/2:maior/2-1, "", maior/2+1, ptsX, (maior%2)?maior/2:maior/2-1, "");    	
+	printf("\033[%dDÀ", tamTotal);
     for(int i=0; i<maior+2; i++)
     	printf("Ä");
     printf("Á");
