@@ -13,11 +13,11 @@ int main() {
     char ptsX=0, ptsO=0, qtdUsuarios=0;
     char c;
     char menu='1';
-    int disponivel, jogadas, vitoria, tam;
+    int disponivel, jogadas, vitoria, tam, i, k;
     
     FILE *f;
     
-    Usuaiocadastrado:
+    MENU:
     do{
     	ImprimeInicial();
     	if(menu != '1' && menu != '2')
@@ -39,17 +39,19 @@ int main() {
 			qtdUsuarios++;
 		}while(c != EOF);
 		qtdUsuarios--;
-    	
+    	NumUsuario=0;
     	for(int j=0; j<2; j++){
     		do{
     			fclose(f);
     			f = fopen("usuarios.txt", "r");
 	    		printf("%43sEscolha um usuário disponivel: \033[s\n\n", "");
-				for(int i=0; i<qtdUsuarios; i++){
+				for(i=0; i<qtdUsuarios; i++){
 					fscanf(f, "%s", usuario);
 					
 					tam = strlen(usuario);
 					
+					if(NumUsuario-49==i)
+						continue;
 					setlocale(LC_ALL, "C");
 					printf("%50sÚÄÄÄ¿ ÚÄÄÄÄÄÄÄÄÄÄÄ¿\n", "");
 					printf("%50s³ %d ³-³ %*s%s%*s ³\n", "",  i+1, (tam%2)?(9 - tam)/2:(9 - tam)/2+1, "", usuario, (9 - tam)/2, "");
@@ -62,11 +64,11 @@ int main() {
 					NumUsuario = getchar();
 				
 				system("cls");
-			}while(!(NumUsuario>='1' && NumUsuario<=qtdUsuarios+48));
+			}while(!(NumUsuario>='1' && NumUsuario<=qtdUsuarios+48) || j==1 && NumUsuario-48==k);
 			fclose(f);
 	    	f = fopen("usuarios.txt", "r");
 	    	
-	    	for(int i=0; i<NumUsuario-48; i++)
+	    	for(k=0; k<NumUsuario-48; k++)
 	    		fscanf(f, "%s", jogadores[j]);
 		}
 		fclose(f);
@@ -87,7 +89,7 @@ int main() {
     	f = fopen("usuarios.txt", "a+");
     	fprintf(f, "%s\n", NovoJogador);
     	fclose(f);
-    	goto Usuaiocadastrado;
+    	goto MENU;
 	}
 	snprintf(jogadores[2], sizeof(jogadores[2]), jogadores[0]);
         
@@ -123,10 +125,10 @@ int main() {
                 ImprimeLayout(velha, sizeof(velha));
                 
                 printf("\n\n%41sÉ a vez de ", "");
-                 if(vez=='X')
-            	printf("\033[91m");
-            else
-            	printf("\033[94m");
+                if(vez=='X')
+            		printf("\033[91m");
+            	else
+            		printf("\033[94m");
                 printf("%s\033[m jogar, escolha a posição: \n", jogadores[2]);
                 printf("%36sDisponíveis: ", "");
 
