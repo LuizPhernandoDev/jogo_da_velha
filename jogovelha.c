@@ -250,4 +250,5 @@ void resultado(char velha[], int n, int vitoria, char vez) {
             printf("%48s %s/\033[0m     ³       ³       \n\n", "", CorVitoria);
             break;
 	}
+	setlocale(LC_ALL, "Portuguese");
 }

@@ -8,28 +8,94 @@
 
 int main() {
     setlocale(LC_ALL, "Portuguese");
-    char velha[9], vez, posicao, novamente, ptsX=0, ptsO=0, jogador1[50], jogador2[50], VezJogador[50], VezJogador1;
-    int disponivel, jogadas, vitoria;
-
-    ImprimeInicial();
-    printf("%46sDigíte o nome do 1° jogador: \n\n","");
-    printf("%55s","");
-    fgets(jogador1, sizeof(jogador1), stdin);
-    jogador1[strlen(jogador1+1)] = '\0';
-    snprintf(VezJogador, sizeof(VezJogador), jogador1);
-    system("cls");
-    ImprimeInicial();
+    char velha[9], vez, posicao, novamente, VezJogador1, NumUsuario;
+    char usuario[10], jogadores[3][10], NovoJogador[50]="user";
+    char ptsX=0, ptsO=0, qtdUsuarios=0;
+    char c;
+    char menu='1';
+    int disponivel, jogadas, vitoria, tam;
     
-    printf("%46sDigíte o nome do 2° jogador: \n\n","");
-    printf("%55s","");
-    fgets(jogador2, sizeof(jogador2), stdin);
-    jogador2[strlen(jogador2+1)] = '\0';
-    system("cls");
+    FILE *f;
+    
+    Usuaiocadastrado:
+    do{
+    	ImprimeInicial();
+    	if(menu != '1' && menu != '2')
+			printf("%39sOpção por falta. Escolha uma opção para jogar\n\n", "");
+		else
+			printf("%45sEscolha uma opição para jogar\n\n", "");
+    	printf("%51s[1] - Novo jogo\n\n", "");
+    	printf("%51s[2] - Cadastrar usuário\n\n", "");
+    	printf("%59s","");
+    	menu = getchar();
+    	system("cls");
+	}while(menu != '1' && menu != '2');
+	
+	if(menu == '1'){
+    	f = fopen("usuarios.txt", "r");
+    	do{
+    		fscanf(f, "%s", usuario);
+			c = fgetc(f);
+			qtdUsuarios++;
+		}while(c != EOF);
+		qtdUsuarios--;
+    	
+    	for(int j=0; j<2; j++){
+    		do{
+    			fclose(f);
+    			f = fopen("usuarios.txt", "r");
+	    		printf("%43sEscolha um usuário disponivel: \033[s\n\n", "");
+				for(int i=0; i<qtdUsuarios; i++){
+					fscanf(f, "%s", usuario);
+					
+					tam = strlen(usuario);
+					
+					setlocale(LC_ALL, "C");
+					printf("%50sÚÄÄÄ¿ ÚÄÄÄÄÄÄÄÄÄÄÄ¿\n", "");
+					printf("%50s³ %d ³-³ %*s%s%*s ³\n", "",  i+1, (tam%2)?(9 - tam)/2:(9 - tam)/2+1, "", usuario, (9 - tam)/2, "");
+					printf("%50sÀÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
+					setlocale(LC_ALL, "Portuguese");
+				}
+				printf("\033[u");
+				NumUsuario = getchar();
+				if(NumUsuario=='\n')
+					NumUsuario = getchar();
+				
+				system("cls");
+			}while(!(NumUsuario>='1' && NumUsuario<=qtdUsuarios+48));
+			fclose(f);
+	    	f = fopen("usuarios.txt", "r");
+	    	
+	    	for(int i=0; i<NumUsuario-48; i++)
+	    		fscanf(f, "%s", jogadores[j]);
+		}
+		fclose(f);
+	}else if(menu == '2'){
+    	limpaBuffer();
+    	do{
+    		if(strlen(NovoJogador) > 9)
+    			printf("%42sO nome deve ter menos de 9 caractes!\n", "");
+    		printf("%46sDigite o nome do novo usuário\n\n", "");
+			printf("%55s","");
+			fgets(NovoJogador, sizeof(NovoJogador), stdin);
+    		NovoJogador[strlen(NovoJogador+1)] = '\0';
+    		if(strlen(NovoJogador) > sizeof(NovoJogador))
+				limpaBuffer();
+			system("cls");
+		}while(strlen(NovoJogador) > 9);
+    
+    	f = fopen("usuarios.txt", "a+");
+    	fprintf(f, "%s\n", NovoJogador);
+    	fclose(f);
+    	goto Usuaiocadastrado;
+	}
+	snprintf(jogadores[2], sizeof(jogadores[2]), jogadores[0]);
         
     do {
     	ImprimeInicial();
         printf("%43sPressione [X] ou [O] para começar:\n\n","");
         printf("%59s", "");
+        limpaBuffer();
         vez = getchar();
         limpaBuffer();
 
@@ -61,7 +127,7 @@ int main() {
             	printf("\033[91m");
             else
             	printf("\033[94m");
-                printf("%s\033[m jogar, escolha a posição: \n", VezJogador);
+                printf("%s\033[m jogar, escolha a posição: \n", jogadores[2]);
                 printf("%36sDisponíveis: ", "");
 
                 for(int i = 0; i < 9; i++)
@@ -92,10 +158,10 @@ int main() {
             	break;
 			}
             vez = (vez == 'X') ? 'O' : 'X';
-            if(!strcmp(VezJogador, jogador1))
-            	snprintf(VezJogador, sizeof(VezJogador), jogador2);
+            if(!strcmp(jogadores[2], jogadores[0]))
+            	snprintf(jogadores[2], sizeof(jogadores[2]), jogadores[1]);
             else
-            	snprintf(VezJogador, sizeof(VezJogador), jogador1);
+            	snprintf(jogadores[2], sizeof(jogadores[2]), jogadores[0]);
             jogadas++;
 
         } while(jogadas <= 9);
@@ -107,14 +173,14 @@ int main() {
             	printf("\033[91m");
             else
             	printf("\033[94m");
-            printf("%s\033[0m é o vencedor\n\n", VezJogador);
+            printf("%s\033[0m é o vencedor\n\n", jogadores[2]);
         } else {
             printf("%53sDeu empate!\n\n", "");
         }
 
         resultado(velha, sizeof(velha), vitoria, vez);
 		
-		imprimePlacar(ptsX, ptsO, jogador1, jogador2, VezJogador1);
+		imprimePlacar(ptsX, ptsO, jogadores[0], jogadores[1], VezJogador1);
 		
 		printf("%37s", "");
 		system("pause");
@@ -138,8 +204,14 @@ int main() {
                 printf("%55sInvalido!\n", "");
 
         } while(novamente != 'S' && novamente != 'N');
-        if(vitoria)
-			vez = (vez == 'X') ? 'O' : 'X';
+        if(vitoria){
+        	vez = (vez == 'X') ? 'O' : 'X';
+			if(!strcmp(jogadores[2], jogadores[0]))
+	        	snprintf(jogadores[2], sizeof(jogadores[2]), jogadores[1]);
+	        else
+	        	snprintf(jogadores[2], sizeof(jogadores[2]), jogadores[0]);
+		}
+			
     } while(novamente == 'S');
 
     return 0;
