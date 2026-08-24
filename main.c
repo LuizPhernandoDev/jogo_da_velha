@@ -21,7 +21,7 @@ int main() {
     do{
     	ImprimeInicial();
     	if(menu != '1' && menu != '2')
-			printf("%39sOpção por falta. Escolha uma opção para jogar\n\n", "");
+			printf("%39sOpção inválida. Escolha uma opção para jogar\n\n", "");
 		else
 			printf("%45sEscolha uma opição para jogar\n\n", "");
     	printf("%51s[1] - Novo jogo\n\n", "");
@@ -33,6 +33,7 @@ int main() {
 	
 	if(menu == '1'){
     	f = fopen("usuarios.txt", "r");
+    	qtdUsuarios=0;
     	do{
     		fscanf(f, "%s", usuario);
 			c = fgetc(f);
@@ -56,15 +57,22 @@ int main() {
 					printf("%50sÚÄÄÄ¿ ÚÄÄÄÄÄÄÄÄÄÄÄ¿\n", "");
 					printf("%50s³ %d ³-³ %*s%s%*s ³\n", "",  i+1, (tam%2)?(9 - tam)/2:(9 - tam)/2+1, "", usuario, (9 - tam)/2, "");
 					printf("%50sÀÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
-					setlocale(LC_ALL, "Portuguese");
 				}
+				printf("%50sÚÄÄÄ¿ ÚÄÄÄÄÄÄÄÄÄÄÄ¿\n", "");
+				printf("%50s³ V ³-³   Voltar  ³\n", "");
+				printf("%50sÀÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
+				setlocale(LC_ALL, "Portuguese");
 				printf("\033[u");
 				NumUsuario = getchar();
 				if(NumUsuario=='\n')
 					NumUsuario = getchar();
-				
 				system("cls");
-			}while(!(NumUsuario>='1' && NumUsuario<=qtdUsuarios+48) || j==1 && NumUsuario-48==k);
+				if(NumUsuario=='V' || NumUsuario=='v'){
+					menu = getchar();
+					menu = '1';
+					goto MENU;
+				}
+			}while(!(NumUsuario>='1' && NumUsuario<=qtdUsuarios+48) || j==1 && NumUsuario-48==k );
 			fclose(f);
 	    	f = fopen("usuarios.txt", "r");
 	    	
