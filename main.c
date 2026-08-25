@@ -18,18 +18,7 @@ int main() {
     FILE *f;
     
     MENU:
-    do{
-    	ImprimeInicial();
-    	if(menu != '1' && menu != '2')
-			printf("%39sOpção inválida. Escolha uma opção para jogar\n\n", "");
-		else
-			printf("%45sEscolha uma opição para jogar\n\n", "");
-    	printf("%51s[1] - Novo jogo\n\n", "");
-    	printf("%51s[2] - Cadastrar usuário\n\n", "");
-    	printf("%59s","");
-    	menu = getchar();
-    	system("cls");
-	}while(menu != '1' && menu != '2');
+    EscolhaMenu(&menu);
 	
 	if(menu == '1'){
     	f = fopen("usuarios.txt", "r");

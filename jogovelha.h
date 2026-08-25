@@ -4,6 +4,8 @@
 #include <string.h>
 #include <math.h>
 
+void EscolhaMenu(char *menu);
+
 void ImprimeLayout(char velha[], int n);
 
 void ImprimeInicial();
