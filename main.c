@@ -13,7 +13,7 @@ int main() {
     char ptsX=0, ptsO=0, qtdUsuarios=0;
     char c;
     char menu='1';
-    int disponivel, jogadas, vitoria, tam, i, k;
+    int disponivel, jogadas, vitoria, i, k;
     
     FILE *f;
     
@@ -22,35 +22,21 @@ int main() {
 	
 	if(menu == '1'){
     	f = fopen("dados\\usuarios.txt", "r");
+    	
     	qtdUsuarios=0;
     	do{
-    		fscanf(f, "%s", usuario);
+    		fscanf(f, "%9s", usuario);
 			c = fgetc(f);
 			qtdUsuarios++;
 		}while(c != EOF);
 		qtdUsuarios--;
     	NumUsuario=0;
+    	
+    	fclose(f);
     	for(int j=0; j<2; j++){
-    		do{
-    			fclose(f);
-    			f = fopen("dados\\usuarios.txt", "r");
-	    		printf("%43sEscolha um usuário disponivel: \033[s\n\n", "");
-				for(i=0; i<qtdUsuarios; i++){
-					fscanf(f, "%s", usuario);
-					
-					tam = strlen(usuario);
-					
-					if(NumUsuario-49==i)
-						continue;
-					setlocale(LC_ALL, "C");
-					printf("%50sÚÄÄÄ¿ ÚÄÄÄÄÄÄÄÄÄÄÄ¿\n", "");
-					printf("%50s³ %d ³-³ %*s%s%*s ³\n", "",  i+1, (tam%2)?(9 - tam)/2:(9 - tam)/2+1, "", usuario, (9 - tam)/2, "");
-					printf("%50sÀÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
-				}
-				printf("%50sÚÄÄÄ¿ ÚÄÄÄÄÄÄÄÄÄÄÄ¿\n", "");
-				printf("%50s³ V ³-³   Voltar  ³\n", "");
-				printf("%50sÀÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
-				setlocale(LC_ALL, "Portuguese");
+    		do{    			
+	    		ImprimeUsuarios(qtdUsuarios, NumUsuario);
+	    		
 				printf("\033[u");
 				NumUsuario = getchar();
 				if(NumUsuario=='\n')
@@ -62,13 +48,14 @@ int main() {
 					goto MENU;
 				}
 			}while(!(NumUsuario>='1' && NumUsuario<=qtdUsuarios+48) || j==1 && NumUsuario-48==k );
-			fclose(f);
+			
 	    	f = fopen("dados\\usuarios.txt", "r");
 	    	
 	    	for(k=0; k<NumUsuario-48; k++)
 	    		fscanf(f, "%s", jogadores[j]);
+	    		
+	    	fclose(f);
 		}
-		fclose(f);
 	}else if(menu == '2'){
     	limpaBuffer();
     	do{
