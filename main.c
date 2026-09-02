@@ -21,7 +21,7 @@ int main() {
     EscolhaMenu(&menu);
 	
 	if(menu == '1'){
-    	f = fopen("usuarios.txt", "r");
+    	f = fopen("dados\\usuarios.txt", "r");
     	qtdUsuarios=0;
     	do{
     		fscanf(f, "%s", usuario);
@@ -33,7 +33,7 @@ int main() {
     	for(int j=0; j<2; j++){
     		do{
     			fclose(f);
-    			f = fopen("usuarios.txt", "r");
+    			f = fopen("dados\\usuarios.txt", "r");
 	    		printf("%43sEscolha um usuário disponivel: \033[s\n\n", "");
 				for(i=0; i<qtdUsuarios; i++){
 					fscanf(f, "%s", usuario);
@@ -63,7 +63,7 @@ int main() {
 				}
 			}while(!(NumUsuario>='1' && NumUsuario<=qtdUsuarios+48) || j==1 && NumUsuario-48==k );
 			fclose(f);
-	    	f = fopen("usuarios.txt", "r");
+	    	f = fopen("dados\\usuarios.txt", "r");
 	    	
 	    	for(k=0; k<NumUsuario-48; k++)
 	    		fscanf(f, "%s", jogadores[j]);
@@ -83,7 +83,7 @@ int main() {
 			system("cls");
 		}while(strlen(NovoJogador) > 9);
     
-    	f = fopen("usuarios.txt", "a+");
+    	f = fopen("dados\\usuarios.txt", "a+");
     	fprintf(f, "%s\n", NovoJogador);
     	fclose(f);
     	goto MENU;
