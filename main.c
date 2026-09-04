@@ -82,7 +82,7 @@ int main() {
 	do{
 		for(int j=0; j<2; j++){
 			ImprimeInicial();
-			printf("%*s%s gire o dado\n\n", 53-strlen(jogadores[j])/2, "", jogadores[j]);
+			printf("\033[97m%*s\033[m gire o dado\n\n", 54+strlen(jogadores[j])/2, jogadores[j]);
 			printf("%37s", "");
 			system("pause");
 			system("cls");
@@ -90,7 +90,7 @@ int main() {
 			dado[j] = rand()%6 + 1;
 			
 			ImprimeInicial();
-			printf("%*s%s tirou %d no dado\n\n", 51-strlen(jogadores[j])/2, "", jogadores[j], dado[j]);
+			printf("\033[97m%*s\033[m tirou %d no dado\n\n", 52+strlen(jogadores[j])/2, jogadores[j], dado[j]);
 			printf("%37s", "");
 			system("pause");
 			system("cls");
@@ -100,13 +100,11 @@ int main() {
 	snprintf(jogadores[2], sizeof(jogadores[2]), jogadores[(dado[0]>dado[1])?0:1]);
     
     do {
-    	
     	ImprimeInicial();
-        printf("%*s%s pressione [X] ou [O] para começar: \n\n", 42-strlen(jogadores[2])/2, "", jogadores[2]);
+        printf("\033[97m%*s\033[m pressione [X] ou [O] para começar: \n\n", 43+strlen(jogadores[2])/2, jogadores[2]);
         printf("%59s", "");
         limpaBuffer();
         vez = getchar();
-        limpaBuffer();
 
         system("cls");
 
@@ -145,8 +143,8 @@ int main() {
                 putchar('\n');
                 
                 printf("\n%59s", "");
-                posicao = getchar();
                 limpaBuffer();
+                posicao = getchar();
 
                 for(int i = 0; i < 9; i++)
                     if(velha[i] == posicao)
