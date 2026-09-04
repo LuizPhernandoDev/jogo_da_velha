@@ -11,12 +11,12 @@ int main() {
 	srand(time(NULL));
 	
     setlocale(LC_ALL, "Portuguese");
-    char velha[9], vez, posicao, novamente, VezJogador1, NumUsuario;
-    char usuario[10], jogadores[3][10], NovoJogador[50]="user";
+    char vez, posicao, novamente, VezJogador1, NumUsuario, c, MelhorDe;
+    char usuario[10], jogadores[3][10], velha[9];
     char ptsX=0, ptsO=0, qtdUsuarios=0;
-    char c;
     char menu='1';
-    int disponivel, jogadas, vitoria, i, k, dado[2];
+    char NovoJogador[50]="user";
+    int disponivel, jogadas, vitoria, i, j, k, dado[2];
     
     FILE *f;
     
@@ -41,12 +41,14 @@ int main() {
 	    		ImprimeUsuarios(qtdUsuarios, NumUsuario);
 	    		
 				printf("\033[u");
+				
 				NumUsuario = getchar();
 				if(NumUsuario=='\n')
 					NumUsuario = getchar();
+				else
+					limpaBuffer();
 				system("cls");
 				if(NumUsuario=='V' || NumUsuario=='v'){
-					menu = getchar();
 					menu = '1';
 					goto MENU;
 				}
@@ -78,9 +80,54 @@ int main() {
     	fclose(f);
     	goto MENU;
 	}
+	MelhorDe='1';
+	do{	
+		setlocale(LC_ALL, "Portuguese");
+		if(!(MelhorDe>='1' && MelhorDe<='3'))
+			printf("%55sInvalido!\n", "");
+			
+	    printf("%36sEscolha uma opição da quantidade de partida: \033[s\n\n", "");
+	    setlocale(LC_ALL, "C");
+	    printf("%49sÚÄÄÄ¿ ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n", "");
+		printf("%49s³ 1 ³-³  Melhor de 3  ³\n", "");
+		printf("%49sÀÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
+		printf("%49sÚÄÄÄ¿ ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n", "");
+		printf("%49s³ 2 ³-³  Melhor de 5  ³\n", "");
+		printf("%49sÀÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
+		printf("%49sÚÄÄÄ¿ ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n", "");
+		printf("%49s³ 3 ³-³  Melhor de 7  ³\n", "");
+		printf("%49sÀÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
+		printf("%49sÚÄÄÄ¿ ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n", "");
+		printf("%49s³ V ³-³  Voltar menu  ³\n", "");
+		printf("%49sÀÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
+		setlocale(LC_ALL, "Portuguese");
+		
+		printf("\033[u");
+		
+		MelhorDe = getchar();
+		if(MelhorDe=='\n')
+			MelhorDe = getchar();
+		else
+			limpaBuffer();
+		system("cls");
+		if(MelhorDe=='V' || MelhorDe=='v')
+			goto MENU;
+		
+	}while(!(MelhorDe>='1' && MelhorDe<='3'));
+	switch (MelhorDe){
+		case '1':
+			MelhorDe=3;
+			break;
+		case '2':
+			MelhorDe=5;
+			break;
+		case '3':
+			MelhorDe=7;
+			break;
+	}
 	
 	do{
-		for(int j=0; j<2; j++){
+		for(j=0; j<2; j++){
 			ImprimeInicial();
 			printf("\033[97m%*s\033[m gire o dado\n\n", 54+strlen(jogadores[j])/2, jogadores[j]);
 			printf("%37s", "");
@@ -98,13 +145,17 @@ int main() {
 	}while(dado[0]==dado[1]);
 	
 	snprintf(jogadores[2], sizeof(jogadores[2]), jogadores[(dado[0]>dado[1])?0:1]);
-    
+	
     do {
     	ImprimeInicial();
         printf("\033[97m%*s\033[m pressione [X] ou [O] para começar: \n\n", 43+strlen(jogadores[2])/2, jogadores[2]);
         printf("%59s", "");
-        limpaBuffer();
+        
         vez = getchar();
+		if(vez=='\n')
+			vez = getchar();
+		else
+			limpaBuffer();
 
         system("cls");
 
@@ -115,6 +166,7 @@ int main() {
 
     } while(vez != 'X' && vez != 'O');
 	VezJogador1=vez;
+	ptsX = ptsO = 0;
 	do {
         vitoria = 0;
         jogadas = 1;
@@ -143,8 +195,12 @@ int main() {
                 putchar('\n');
                 
                 printf("\n%59s", "");
-                limpaBuffer();
+                
                 posicao = getchar();
+				if(posicao=='\n')
+					posicao = getchar();
+				else
+					limpaBuffer();
 
                 for(int i = 0; i < 9; i++)
                     if(velha[i] == posicao)
@@ -193,14 +249,15 @@ int main() {
 		system("pause");
 		system("cls");
 		
-        do {
+        /*do {
         	printf("\n\n\n\n\n\n\n\n\n");
             printf("%50sQuer jogar novamente:\n\n", "");
             printf("%56s[S] Sim\n\n", "");
             printf("%56s[N] Não\n\n", "");
             printf("%59s", "");
             novamente = getchar();
-            limpaBuffer();
+            if(novamente=='\n')
+        			novamente = getchar();
 
             if(novamente == 's' || novamente == 'n')
                 novamente -= 32;
@@ -209,8 +266,9 @@ int main() {
 
             if(novamente != 'S' && novamente != 'N')
                 printf("%55sInvalido!\n", "");
-
         } while(novamente != 'S' && novamente != 'N');
+        */
+        
         if(vitoria){
         	vez = (vez == 'X') ? 'O' : 'X';
 			if(!strcmp(jogadores[2], jogadores[0]))
@@ -219,7 +277,9 @@ int main() {
 	        	snprintf(jogadores[2], sizeof(jogadores[2]), jogadores[0]);
 		}
 			
-    } while(novamente == 'S');
+    } while(ptsX<MelhorDe/2+1 && ptsO<MelhorDe/2+1);
+    
+    goto MENU;
 
     return 0;
 }

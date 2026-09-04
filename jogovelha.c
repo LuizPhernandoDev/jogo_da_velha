@@ -19,7 +19,7 @@ void ImprimeUsuarios(char qtdUsuarios, char NumUsuario){
 		printf("%50sÀÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
 	}
 	printf("%50sÚÄÄÄ¿ ÚÄÄÄÄÄÄÄÄÄÄÄ¿\n", "");
-	printf("%50s³ V ³-³   Voltar  ³\n", "");
+	printf("%50s³ V ³-³Voltar menu³\n", "");
 	printf("%50sÀÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
 	setlocale(LC_ALL, "Portuguese");
 	
@@ -29,7 +29,7 @@ void ImprimeUsuarios(char qtdUsuarios, char NumUsuario){
 void EscolhaMenu(char *menu){
 	do{
     	ImprimeInicial();
-    	if(*menu != '1' && *menu != '2')
+    	if(*menu < '1' || *menu > '2')
 			printf("%39sOpção inválida. Escolha uma opção para jogar\n\n", "");
 		else
 			printf("%45sEscolha uma opição para jogar\n\n", "");
@@ -37,8 +37,12 @@ void EscolhaMenu(char *menu){
     	printf("%51s[2] - Cadastrar usuário\n\n", "");
     	printf("%59s","");
     	*menu = getchar();
+		if(*menu=='\n')
+			*menu = getchar();
+		else
+			limpaBuffer();
     	system("cls");
-	}while(*menu != '1' && *menu != '2');
+	}while(*menu < '1' || *menu > '2');
 }
 
 void imprimePlacar(int ptsX, int ptsO, const char *jogador1, const char *jogador2, const char VezJogador1){
