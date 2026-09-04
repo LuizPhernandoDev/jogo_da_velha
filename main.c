@@ -3,17 +3,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
 
 #include "jogovelha.h"
 
 int main() {
+	srand(time(NULL));
+	
     setlocale(LC_ALL, "Portuguese");
     char velha[9], vez, posicao, novamente, VezJogador1, NumUsuario;
     char usuario[10], jogadores[3][10], NovoJogador[50]="user";
     char ptsX=0, ptsO=0, qtdUsuarios=0;
     char c;
     char menu='1';
-    int disponivel, jogadas, vitoria, i, k;
+    int disponivel, jogadas, vitoria, i, k, dado[2];
     
     FILE *f;
     
@@ -75,11 +78,31 @@ int main() {
     	fclose(f);
     	goto MENU;
 	}
-	snprintf(jogadores[2], sizeof(jogadores[2]), jogadores[0]);
-        
+	
+	do{
+		for(int j=0; j<2; j++){
+			ImprimeInicial();
+			printf("%*s%s gire o dado\n\n", 53-strlen(jogadores[j])/2, "", jogadores[j]);
+			printf("%37s", "");
+			system("pause");
+			system("cls");
+			
+			dado[j] = rand()%6 + 1;
+			
+			ImprimeInicial();
+			printf("%*s%s tirou %d no dado\n\n", 51-strlen(jogadores[j])/2, "", jogadores[j], dado[j]);
+			printf("%37s", "");
+			system("pause");
+			system("cls");
+		}
+	}while(dado[0]==dado[1]);
+	
+	snprintf(jogadores[2], sizeof(jogadores[2]), jogadores[(dado[0]>dado[1])?0:1]);
+    
     do {
+    	
     	ImprimeInicial();
-        printf("%43sPressione [X] ou [O] para começar:\n\n","");
+        printf("%*s%s pressione [X] ou [O] para começar: \n\n", 42-strlen(jogadores[2])/2, "", jogadores[2]);
         printf("%59s", "");
         limpaBuffer();
         vez = getchar();
