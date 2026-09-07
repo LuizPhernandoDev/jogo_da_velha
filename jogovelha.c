@@ -3,7 +3,7 @@
 void ImprimeUsuarios(char qtdUsuarios, char NumUsuario){
 	char usuario[10];
 	int tam;
-	FILE *f = fopen("dados\\usuarios.txt", "r");
+	FILE *f = fopen("dados/usuarios.txt", "r");
 	
 	printf("%43sEscolha um usuário disponivel: \033[s\n\n", "");
 	for(int i=0; i<qtdUsuarios; i++){
@@ -29,12 +29,13 @@ void ImprimeUsuarios(char qtdUsuarios, char NumUsuario){
 void EscolhaMenu(char *menu){
 	do{
     	ImprimeInicial();
-    	if(*menu < '1' || *menu > '2')
+    	if(*menu < '1' || *menu > '3')
 			printf("%39sOpção inválida. Escolha uma opção para jogar\n\n", "");
 		else
 			printf("%45sEscolha uma opição para jogar\n\n", "");
     	printf("%51s[1] - Novo jogo\n\n", "");
     	printf("%51s[2] - Cadastrar usuário\n\n", "");
+    	printf("%51s[3] - Ver histórioco\n\n", "");
     	printf("%59s","");
     	*menu = getchar();
 		if(*menu=='\n')
@@ -42,7 +43,7 @@ void EscolhaMenu(char *menu){
 		else
 			limpaBuffer();
     	system("cls");
-	}while(*menu < '1' || *menu > '2');
+	}while(*menu < '1' || *menu > '3');
 }
 
 void imprimePlacar(int ptsX, int ptsO, const char *jogador1, const char *jogador2, const char VezJogador1){
