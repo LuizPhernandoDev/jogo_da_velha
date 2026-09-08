@@ -394,7 +394,7 @@ int main() {
     tam = strlen(jogadores[0]);
 	
 	printf("\n\n\n\n\n\n\n\n");
-	printf("%49sParabéns \033[97m%s\033[0m, você ganhou!\n", "", (!strcmp(jogadores[0], jogadores[2])) ? jogadores[0] : jogadores[1]);
+	printf("%49sParabéns \033[97m%s\033[0m, você ganhou!\n", "", (strcmp(jogadores[0], jogadores[2])) ? jogadores[0] : jogadores[1]);
 	printf("%57sPLACAR FINAL\n", "");
 	setlocale(LC_ALL, "C");
 	printf("%50sÚÄÄÄÄÄÄÄÄÄÄÄÂ\033[s\n", "");
