@@ -26,7 +26,7 @@ int main() {
     char ptsX=0, ptsO=0, qtdUsuarios=0;
     char menu='1';
     char NovoJogador[50]="user";
-    int disponivel, jogadas, vitoria, i, j, k, dado[2], tam, qtdPartidas;
+    int disponivel, jogadas, vitoria, i, j, k, dado[2], tam, qtdPartidas, NaoPode;
     Historco Jogadores;
     char NomeArquivo[50];
     FILE *f;
@@ -51,8 +51,11 @@ int main() {
 	
     	for(int j=0; j<2; j++){
     		do{    			
-	    		ImprimeUsuarios(qtdUsuarios, NumUsuario);
+	    		ImprimeUsuarios(qtdUsuarios, NumUsuario, &NaoPode);
 	    		
+	    		if(NaoPode)
+	    			goto MENU;
+	    			
 				printf("\033[u");
 				
 				NumUsuario = getchar();
@@ -121,7 +124,10 @@ int main() {
 			
 		}else if(tipoHitorico == '2'){
 			do{    			
-	    		ImprimeUsuarios(qtdUsuarios, NumUsuario);
+	    		ImprimeUsuarios(qtdUsuarios, NumUsuario, &NaoPode);
+	    		
+	    		if(NaoPode)
+	    			goto MENU;
 	    		
 				printf("\033[u");
 				
@@ -158,6 +164,7 @@ int main() {
 			    for(i=0; i<qtdPartidas; i++){
 					fseek(f, i*sizeof(Historco), SEEK_SET);
 					fread(&Jogadores, sizeof(Historco), 1, f);
+					snprintf(HistoricoUsuario[1], sizeof(HistoricoUsuario[1]), (strcmp(HistoricoUsuario[0], Jogadores.vencedor)) ? Jogadores.vencedor : Jogadores.perdedor);
 					
 					tam = strlen(HistoricoUsuario[0]);
 					
@@ -165,13 +172,13 @@ int main() {
 					printf("%50sÚÄÄÄÄÄÄÄÄÄÄÄÂ\033[s\n", "");
 					printf("%50s³ %*s%s%s%*s\033[0m ³\n", "", (tam%2)?(9 - tam)/2:(9 - tam)/2+1, "", (!strcmp(HistoricoUsuario[0], Jogadores.vencedor)) ? ((Jogadores.vez[0]=='X') ? "\033[91m" : "\033[94m") : ((Jogadores.vez[0]=='X') ? "\033[94m" : "\033[91m"), HistoricoUsuario[0], (9 - tam)/2, "");
 					printf("%50sÃÄÄÄÄÄÄÄÄÄÄÄÅ\n", "");
-					printf("\033[uÄÄÄÄÄÄÄÄÄÄÄ¿");
 					
-					snprintf(HistoricoUsuario[1], sizeof(HistoricoUsuario[1]), (strcmp(HistoricoUsuario[0], Jogadores.vencedor)) ? Jogadores.vencedor : Jogadores.perdedor);
 					tam = strlen(HistoricoUsuario[1]);
 					
+					printf("\033[uÄÄÄÄÄÄÄÄÄÄÄ¿");				
 					printf("\033[u\033[1B %*s%s%s%*s\033[0m ³\n",(tam%2)?(9 - tam)/2:(9 - tam)/2+1, "", (!strcmp(HistoricoUsuario[1], Jogadores.vencedor)) ? ((Jogadores.vez[0]=='X') ? "\033[91m" : "\033[94m") : ((Jogadores.vez[0]=='X') ? "\033[94m" : "\033[91m"), HistoricoUsuario[1], (9 - tam)/2, "");
 					printf("\033[u\033[2BÄÄÄÄÄÄÄÄÄÄÄ´\n");
+					
 					printf("%50s³ %5d%4s ³ %5d%4s ³\n", "", (!strcmp(HistoricoUsuario[0], Jogadores.vencedor)) ? Jogadores.placar[0] : Jogadores.placar[1], "", (!strcmp(HistoricoUsuario[1], Jogadores.vencedor)) ? Jogadores.placar[0] : Jogadores.placar[1], "");
 					printf("%50sÀÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
 				}
@@ -384,11 +391,13 @@ int main() {
 			
     } while(ptsX<MelhorDe/2+1 && ptsO<MelhorDe/2+1);
     
-    snprintf(Jogadores.perdedor, sizeof(Jogadores.vencedor), (!strcmp(jogadores[2], jogadores[0])) ? jogadores[0] : jogadores[1]);
-    snprintf(Jogadores.vencedor, sizeof(Jogadores.perdedor), (!strcmp(jogadores[2], jogadores[1])) ? jogadores[0] : jogadores[1]);
+    
+    
+    snprintf(Jogadores.vencedor, sizeof(Jogadores.perdedor), (strcmp(jogadores[2], jogadores[0])) ? jogadores[0] : jogadores[1]);
+    snprintf(Jogadores.perdedor, sizeof(Jogadores.vencedor), (strcmp(jogadores[2], jogadores[0])) ? jogadores[1] : jogadores[0]);
     snprintf(Jogadores.vez, sizeof(Jogadores.vez), (vez == 'X') ? "OX" : "XO");
-    Jogadores.placar[0] = (VezJogador1 == 'X') ? ptsX : ptsO;
-    Jogadores.placar[1] = (VezJogador1 == 'X') ? ptsO : ptsX;
+    Jogadores.placar[0] = (vez == 'X') ? ptsO : ptsX;
+    Jogadores.placar[1] = (vez == 'X') ? ptsX : ptsO;
     
     for(i=0; i<2; i++){
     	snprintf(NomeArquivo, sizeof(NomeArquivo), "dados/partida/%s.txt", jogadores[i]);
@@ -399,7 +408,7 @@ int main() {
 		    fwrite(&Jogadores, sizeof(Historco), 1, f);
 		    fclose(f);
 		} else {
-		    printf("Erro ao abrir o arquivo! Certifique-se de que a pasta 'dados/partida' existe.\n");
+		    printf("%37sErro ao abrir o arquivo! Certifique-se de que a pasta 'dados/partida' existe.\n", "");
 		}
 	}	
 	
