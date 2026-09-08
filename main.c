@@ -26,7 +26,7 @@ int main() {
     char ptsX=0, ptsO=0, qtdUsuarios=0;
     char menu='1';
     char NovoJogador[50]="user";
-    int disponivel, jogadas, vitoria, i, j, k, dado[2], tam, qtdPartidas, NaoPode;
+    int disponivel, jogadas, vitoria, i, j, k, dado[2], tam, qtdPartidas, NaoPode, qtdHistorico;
     Historco Jogadores;
     char NomeArquivo[50];
     FILE *f;
@@ -119,9 +119,82 @@ int main() {
 				limpaBuffer();
 			system("cls");
 		}while(tipoHitorico!='1'&&tipoHitorico!='2');
-		
+		qtdHistorico=0;
 		if(tipoHitorico == '1'){
+			for(int j=0; j<2; j++){
+	    		do{    			
+		    		ImprimeUsuarios(qtdUsuarios, NumUsuario, &NaoPode);
+		    		
+		    		if(NaoPode)
+		    			goto MENU;
+		    			
+					printf("\033[u");
+					
+					NumUsuario = getchar();
+					if(NumUsuario=='\n')
+						NumUsuario = getchar();
+					else
+						limpaBuffer();
+					system("cls");
+					if(NumUsuario=='V' || NumUsuario=='v'){
+						menu = '1';
+						goto MENU;
+					}
+				}while(!(NumUsuario>='1' && NumUsuario<=qtdUsuarios+48) || j==1 && NumUsuario-48==k );
+				
+		    	f = fopen("dados/usuarios.txt", "r");
+		    	
+		    	for(k=0; k<NumUsuario-48; k++)
+		    		fscanf(f, "%s", HistoricoUsuario[j]);
+		    		
+		    	fclose(f);
+			}
 			
+			snprintf(NomeArquivo, sizeof(NomeArquivo),"dados/partida/%s.txt", HistoricoUsuario[0]);
+			f = fopen(NomeArquivo, "rb");
+			if (f == NULL) {
+				printf("\n\n\n\n\n\n\n\n\n\n%37s", "");
+		        printf("Erro: O jogador não possui historico de partida.\n\n\n");
+		    }else{
+		    	qtdPartidas=0;
+				while (fread(&Jogadores, sizeof(Historco), 1, f) == 1) {
+			        qtdPartidas++;
+			    }
+			    for(i=0; i<qtdPartidas; i++){
+					fseek(f, i*sizeof(Historco), SEEK_SET);
+					fread(&Jogadores, sizeof(Historco), 1, f);
+					
+					if((!strcmp(HistoricoUsuario[0], Jogadores.vencedor)) ^ (!strcmp(HistoricoUsuario[1], Jogadores.perdedor)) || (!strcmp(HistoricoUsuario[1], Jogadores.vencedor)) ^ (!strcmp(HistoricoUsuario[0], Jogadores.perdedor))){
+						
+						if(i==qtdPartidas-1 && !qtdHistorico){
+							printf("\n\n\n\n\n\n\n\n\n\n%37s", "");
+		        			printf("Erro: Os jogadores não possui historico de partida.\n\n\n");
+						}
+						continue;
+					}
+					qtdHistorico++;
+					tam = strlen(HistoricoUsuario[0]);
+					
+					setlocale(LC_ALL, "C");
+					printf("%50sÚÄÄÄÄÄÄÄÄÄÄÄÂ\033[s\n", "");
+					printf("%50s³ %*s%s%s%*s\033[0m ³\n", "", (tam%2)?(9 - tam)/2:(9 - tam)/2+1, "", (!strcmp(HistoricoUsuario[0], Jogadores.vencedor)) ? ((Jogadores.vez[0]=='X') ? "\033[91m" : "\033[94m") : ((Jogadores.vez[0]=='X') ? "\033[94m" : "\033[91m"), HistoricoUsuario[0], (9 - tam)/2, "");
+					printf("%50sÃÄÄÄÄÄÄÄÄÄÄÄÅ\n", "");
+					
+					tam = strlen(HistoricoUsuario[1]);
+					
+					printf("\033[uÄÄÄÄÄÄÄÄÄÄÄ¿");				
+					printf("\033[u\033[1B %*s%s%s%*s\033[0m ³\n",(tam%2)?(9 - tam)/2:(9 - tam)/2+1, "", (!strcmp(HistoricoUsuario[1], Jogadores.vencedor)) ? ((Jogadores.vez[0]=='X') ? "\033[91m" : "\033[94m") : ((Jogadores.vez[0]=='X') ? "\033[94m" : "\033[91m"), HistoricoUsuario[1], (9 - tam)/2, "");
+					printf("\033[u\033[2BÄÄÄÄÄÄÄÄÄÄÄ´\n");
+					
+					printf("%50s³ %5d%4s ³ %5d%4s ³\n", "", (!strcmp(HistoricoUsuario[0], Jogadores.vencedor)) ? Jogadores.placar[0] : Jogadores.placar[1], "", (!strcmp(HistoricoUsuario[1], Jogadores.vencedor)) ? Jogadores.placar[0] : Jogadores.placar[1], "");
+					printf("%50sÀÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
+					
+				}
+			}
+			printf("%39s", "");
+			system("pause");
+			system("cls");
+			fclose;
 		}else if(tipoHitorico == '2'){
 			do{    			
 	    		ImprimeUsuarios(qtdUsuarios, NumUsuario, &NaoPode);
