@@ -343,12 +343,12 @@ int main() {
 
         if(vitoria) {
             printf("%55sParabéns!\n", "");
-            printf("%52sO ", "");
+            printf("%49s", "");
             if(vez=='X')
             	printf("\033[91m");
             else
             	printf("\033[94m");
-            printf("%s\033[0m é o vencedor\n\n", jogadores[2]);
+            printf("%s\033[0m venceu\n\n", jogadores[2]);
         } else {
             printf("%53sDeu empate!\n\n", "");
         }
@@ -391,7 +391,28 @@ int main() {
 			
     } while(ptsX<MelhorDe/2+1 && ptsO<MelhorDe/2+1);
     
-    
+    tam = strlen(jogadores[0]);
+	
+	printf("\n\n\n\n\n\n\n\n");
+	printf("%49sParabéns \033[97m%s\033[0m, você ganhou!\n", "", (!strcmp(jogadores[0], jogadores[2])) ? jogadores[0] : jogadores[1]);
+	printf("%57sPLACAR FINAL\n", "");
+	setlocale(LC_ALL, "C");
+	printf("%50sÚÄÄÄÄÄÄÄÄÄÄÄÂ\033[s\n", "");
+	printf("%50s³ %*s%s%s%*s\033[0m ³\n", "", (tam%2)?(9 - tam)/2:(9 - tam)/2+1, "", (vez=='X') ? "\033[91m" : "\033[94m", jogadores[0], (9 - tam)/2, "");
+	printf("%50sÃÄÄÄÄÄÄÄÄÄÄÄÅ\n", "");
+	
+	tam = strlen(jogadores[1]);
+	
+	printf("\033[uÄÄÄÄÄÄÄÄÄÄÄ¿");				
+	printf("\033[u\033[1B %*s%s%s%*s\033[0m ³\n", (tam%2)?(9 - tam)/2:(9 - tam)/2+1, "", (vez=='O') ? "\033[91m" : "\033[94m", jogadores[1], (9 - tam)/2, "");
+	printf("\033[u\033[2BÄÄÄÄÄÄÄÄÄÄÄ´\n");
+	
+	printf("%50s³ %5d%4s ³ %5d%4s ³\n", "", (!strcmp(jogadores[0], jogadores[2])) ? ptsO : ptsX, "", (!strcmp(jogadores[0], jogadores[2])) ? ptsX : ptsO, "");
+	printf("%50sÀÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÙ\n\n\n", "");
+	
+	printf("%40s", "");
+	system("pause");
+	system("cls");
     
     snprintf(Jogadores.vencedor, sizeof(Jogadores.perdedor), (strcmp(jogadores[2], jogadores[0])) ? jogadores[0] : jogadores[1]);
     snprintf(Jogadores.perdedor, sizeof(Jogadores.vencedor), (strcmp(jogadores[2], jogadores[0])) ? jogadores[1] : jogadores[0]);

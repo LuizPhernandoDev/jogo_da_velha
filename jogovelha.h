@@ -5,7 +5,7 @@
 #include <math.h>
 #include <time.h>
 
-void ImprimeUsuarios(char qtdUsuarios, char NumUsuario);
+void ImprimeUsuarios(char qtdUsuarios, char NumUsuario, int *NaoPode);
 
 void EscolhaMenu(char *menu);
 

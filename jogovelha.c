@@ -1,27 +1,44 @@
 #include "jogovelha.h"
 
-void ImprimeUsuarios(char qtdUsuarios, char NumUsuario){
+void ImprimeUsuarios(char qtdUsuarios, char NumUsuario, int *NaoPode){
 	char usuario[10];
 	int tam;
 	FILE *f = fopen("dados/usuarios.txt", "r");
 	
-	printf("%43sEscolha um usuário disponivel: \033[s\n\n", "");
-	for(int i=0; i<qtdUsuarios; i++){
-		fscanf(f, "%9s", usuario);
-		
-		tam = strlen(usuario);
-		
-		if(NumUsuario-49==i)
-			continue;
-		setlocale(LC_ALL, "C");
+	if (f == NULL) {
+		printf("\n\n\n\n\n\n\n\n\n\n%40s", "");
+        printf("Erro: Não existe usuarios cadastrados.\n\n\n");
+        printf("%39s", "");
+		system("pause");
+		system("cls");
+        *NaoPode=1;
+    }else if(qtdUsuarios==1){
+    	printf("\n\n\n\n\n\n\n\n\n\n%40s", "");
+        printf("Erro: Não existe usuarios cadastrados suficientes.\n\n\n");
+        printf("%39s", "");
+		system("pause");
+		system("cls");
+        *NaoPode=1;
+	}else{
+    	printf("%43sEscolha um usuário disponivel: \033[s\n\n", "");
+		for(int i=0; i<qtdUsuarios; i++){
+			fscanf(f, "%9s", usuario);
+			
+			tam = strlen(usuario);
+			
+			if(NumUsuario-49==i)
+				continue;
+			setlocale(LC_ALL, "C");
+			printf("%50sÚÄÄÄ¿ ÚÄÄÄÄÄÄÄÄÄÄÄ¿\n", "");
+			printf("%50s³ %d ³-³ %*s%s%*s ³\n", "",  i+1, (tam%2)?(9 - tam)/2:(9 - tam)/2+1, "", usuario, (9 - tam)/2, "");
+			printf("%50sÀÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
+		}
 		printf("%50sÚÄÄÄ¿ ÚÄÄÄÄÄÄÄÄÄÄÄ¿\n", "");
-		printf("%50s³ %d ³-³ %*s%s%*s ³\n", "",  i+1, (tam%2)?(9 - tam)/2:(9 - tam)/2+1, "", usuario, (9 - tam)/2, "");
+		printf("%50s³ V ³-³Voltar menu³\n", "");
 		printf("%50sÀÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
+		setlocale(LC_ALL, "Portuguese");
+		*NaoPode=0;
 	}
-	printf("%50sÚÄÄÄ¿ ÚÄÄÄÄÄÄÄÄÄÄÄ¿\n", "");
-	printf("%50s³ V ³-³Voltar menu³\n", "");
-	printf("%50sÀÄÄÄÙ ÀÄÄÄÄÄÄÄÄÄÄÄÙ\n", "");
-	setlocale(LC_ALL, "Portuguese");
 	
 	fclose(f);
 }
